@@ -49,7 +49,36 @@ module.exports = {
 };
 ```
 
-2. Ethers
+2. Also in hardhat config: 
+
+You can load up accounts and then access them via ethers.signers
+
+```
+module.exports = {
+  networks: {
+    // in built test network to use when developing contracts
+    hardhat: {
+      chainId: 1337
+    },
+    quickstart: {
+      url: "http://127.0.0.1:8545",
+      chainId: 1337,
+      // test accounts only, all good ;)
+      accounts: [
+        "0x8f2a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be63",
+        "0xc87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3",
+        "0xae6ae8e5ccbfb04590405997ee2d52d2b330726137b875053c36d94e974d162f"
+      ]
+    },
+  }
+}
+```
+then call 
+```
+const [owner, otherAccount] = await ethers.getSigners();
+```
+
+3. Ethers
 
 ```
 import {ethers} = require("ethers");
@@ -57,20 +86,38 @@ import { HDNodeWallet } from 'ethers';
 let node = ethers.HDNodeWallet.fromMnemonic(words)
 ```
 
-3. Ethers with Metmask
+4. Ethers with Metmask
 ```
-const provider = new ethers.provider.Web3Provider(window.ethereum);
+const provider = new ethers.BrowserProvider(window.ethereum)
 ```
 
 #### Load wallet from existing privateKey
 
+1. Simple use case
+```
+import { ethers } from "hardhat"
+const provider = new ethers.JsonRpcApiProvider("JSON-RPC-http-endpoint");
+const wallet = new ethers.Wallet("0xMY_PRIVATE_KEY");
+const signer = wallet.connect(provider);
+
+# optionally with a provider directly
+const wallet = new ethers.Wallet("0xMY_PRIVATE_KEY", provider);
+```
+
+2. With password and encryption/decryption
 ```
 import CryptoJS from 'crypto-js';
-import { Wallet, formatEther } from 'ethers';
+import { ethers } from "hardhat"
 
 const key = localStorage.getItem('encryptedPrivateKey');
 const bytes = CryptoJS.AES.decrypt(key, password);
 const privateKey = bytes.toString(CryptoJS.enc.Utf8);
 const wallet = new Wallet(privateKey, provider);
 
-``````
+```
+
+3. With the mneumonic of the key, where `your_selected_account`` is the account index to use, starting from 0.
+```
+const account = utils.HDNode.fromMnemonic(your_mnemonic_string).derivePath(`m/44'/60'/0'/0/${your_selected_account}`);
+const signer = new Wallet(account, provider);
+```
