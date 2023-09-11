@@ -6,7 +6,8 @@ module.exports = {
   networks: {
     // in built test network to use when developing contracts
     hardhat: {
-      chainId: 1337
+      chainId: 1337,
+      hardFork: "muirGlacier"
     },
     quickstart: {
       url: "http://127.0.0.1:8545",

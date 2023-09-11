@@ -121,3 +121,7 @@ const wallet = new Wallet(privateKey, provider);
 const account = utils.HDNode.fromMnemonic(your_mnemonic_string).derivePath(`m/44'/60'/0'/0/${your_selected_account}`);
 const signer = new Wallet(account, provider);
 ```
+alternatively
+```
+const wallet: HDNodeWallet = await Wallet.fromPhrase(your_mnemonic_string);
+```
