@@ -7,6 +7,9 @@ import { ethers } from "hardhat"
 import { Wallet, HDNodeWallet } from "ethers";
 
 describe("Accounts", function () {
+
+  // Can specify the Mnemonic like this here and use it or embed it in the hardhat.config.ts
+  // Pick whichever option makes sense to the tests
   const testMnemonicAccount = {
     mnemonic: "phrase upgrade clock rough situate wedding elder clever doctor stamp excess tent",
     address: "0xE18035BF8712672935FDB4e5e431b1a0183d2DFC",
@@ -14,6 +17,7 @@ describe("Accounts", function () {
     privateKey: "0x4cfd3e90fc78b0f86bf7524722150bb8da9c60cd532564d7ff43f5716514f553"
   }
 
+  // Specify an account like so via its private key and test functionality with that
   const testAccount = {
     privateKey: "0x7C9529A67102755B7E6102D6D950AC5D5863C98713805CEC576B945B15B71EAC",
     address: "0x5CfE73b6021E818B776b421B1c4Db2474086a7e1"

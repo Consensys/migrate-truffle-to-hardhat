@@ -7,7 +7,14 @@ module.exports = {
     // in built test network to use when developing contracts
     hardhat: {
       chainId: 1337,
-      hardFork: "muirGlacier"
+      hardFork: "muirGlacier",
+      // accounts: {
+      //   mnemonic: "test test test test test test test test test test test junk",
+      //   path: "m/44'/60'/0'/0",
+      //   initialIndex: 0,
+      //   count: 20,
+      //   passphrase: "",
+      // }
     },
     quickstart: {
       url: "http://127.0.0.1:8545",
